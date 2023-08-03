@@ -5,6 +5,7 @@ import com.sysLog.project.common.BaseResponse;
 import com.sysLog.project.common.ResponseCodeEnum;
 import com.sysLog.project.mapper.SysLogMapper;
 import com.sysLog.project.model.entity.SysLog;
+import com.sysLog.project.util.IPUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -76,8 +77,15 @@ public class SysLogAspect {
     }
 
     // 设置ip地址
-    private void setIpAddress(HttpServletRequest request, SysLog sysLog) {
-        sysLog.setIp("127.0.0.1");
+    private void setIpAddress(HttpServletRequest request, SysLog sysLog) throws Exception {
+        if (request != null) {
+            try {
+                sysLog.setIp(IPUtils.getIpAddr(request));
+            } catch (Exception e) {
+                sysLog.setIp(null);
+            }
+        }
+
     }
 
     // 设置操作类型
