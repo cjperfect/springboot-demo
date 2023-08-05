@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,13 @@ public class SysLogAspect {
 
     @Autowired
     private SysLogMapper sysLogMapper;
+
+
+    // 设置切点
+    @Pointcut("@annotation(com.sysLog.project.annotation.SysLogAnnotation)")
+    private void pointCut() {
+    }
+
 
     // 设置接口开始时间和消耗时间
     private Object setSpendTime(ProceedingJoinPoint pjp, SysLog sysLog) throws Throwable {
@@ -119,8 +127,8 @@ public class SysLogAspect {
         return sysLog;
     }
 
-
-    @Around("execution(public * com.sysLog.project.controller.*.*(..))")
+    //    @Around("execution(public * com.sysLog.project.controller.*.*(..))") // 针对所有controller下面所有方法
+    @Around("pointCut()") // 只针对切点的才会执行
     public Object postLogAspect(ProceedingJoinPoint pjp) throws Throwable {
 
         SysLog sysLog = this.createOperateLog(pjp); // 创建一个操作日志
