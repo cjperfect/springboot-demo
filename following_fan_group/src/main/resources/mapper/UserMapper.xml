@@ -9,18 +9,19 @@
 
 
     <select id="getUserByIdList" resultType="com.cj.followingFanGroup.entity.User">
-        select *
-        from user
-        where id in
-        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
+        select * from user
+        <if test="idList != null and idList.size > 0">
+            where id in
+            <foreach collection="idList" index="index" item="userId" separator="," open="(" close=")">
+                #{userId}
+            </foreach>
+        </if>
     </select>
 
     <select id="getUserById" resultType="com.cj.followingFanGroup.entity.User">
         select *
         from user
-        where id = #{id}
+        where id = #{id};
     </select>
 
 

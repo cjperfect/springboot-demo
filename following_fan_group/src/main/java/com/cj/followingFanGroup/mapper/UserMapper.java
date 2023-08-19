@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public interface UserMapper {
@@ -17,18 +18,17 @@ public interface UserMapper {
     List<User> getAllUser();
 
     /**
-     * 根据用户id获取用户信息
+     * 根据id获取用户
      *
-     * @param id
      * @return
      */
-    User getUserById(Long id);
+    User getUserById(@Param("id") Long id);
+
 
     /**
-     * 根据idList, 获取所有的用户
+     * 根据idList获取所有用户
      *
-     * @param idList
      * @return
      */
-    List<User> getUserByIdList(@Param("idList") List<Long> idList);
+    List<User> getUserByIdList(@Param("idList") Set<Long> idList);
 }

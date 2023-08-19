@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cj.followingFanGroup.mapper.FollowingGroupMapper">
+
+
+    <select id="getAllGroupByUserId" resultType="com.cj.followingFanGroup.entity.FollowingGroup">
+        select *
+        from following_group
+        where userId = #{userId}
+           or groupCode in (0, 1)
+-- 默认关注和特别关注这两个分组是每个用户都有的, 因此需要查询出来
+    </select>
+</mapper>

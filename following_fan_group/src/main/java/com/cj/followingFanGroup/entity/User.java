@@ -21,4 +21,5 @@ public class User {
 
     // 关注列表
     private List<User> followingList;
+
 }

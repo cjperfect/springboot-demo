@@ -1,10 +1,10 @@
 package com.cj.followingFanGroup.controller;
 
 import com.cj.followingFanGroup.common.response.BaseResponse;
+import com.cj.followingFanGroup.entity.FollowingGroup;
 import com.cj.followingFanGroup.entity.User;
 import com.cj.followingFanGroup.service.FollowingUserService;
 import com.cj.followingFanGroup.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,25 +34,28 @@ public class indexController {
     }
 
     /**
-     * 获取用户关注的列表
-     *
-     * @return
-     */
-    @GetMapping("/getFollowingUser/{userId}")
-    public BaseResponse<User> getFollowingUser(@PathVariable Long userId) {
-        User user = followingUserService.getFollowingUserById(userId);
-        return BaseResponse.success(user);
-    }
-
-
-    /**
+     * 获取关注列表
      * 获取用户的关注分组, 及分组里面包含哪些关注人员
      *
      * @param userId
      * @return
      */
-    @GetMapping("/getUserFollowingGroup/{userId}")
-    public BaseResponse<User> getUserFollowingGroup(@PathVariable Long userId) {
-        return BaseResponse.success(null);
+    @GetMapping("/getUserFollowing/{userId}")
+    public BaseResponse<List<FollowingGroup>> getFollowingUserByUserId(@PathVariable Long userId) {
+        List<FollowingGroup> followingGroups = followingUserService.getFollowingUserByUserId(userId);
+        return BaseResponse.success(followingGroups);
+    }
+
+    /**
+     * 获取粉丝列表
+     * 获取用户的粉丝, 也就是谁关注了我
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("/getUserFan/{userId}")
+    public BaseResponse<List<User>> getUserFan(@PathVariable Long userId) {
+        List<User> followingGroups = followingUserService.getUserFan(userId);
+        return BaseResponse.success(followingGroups);
     }
 }

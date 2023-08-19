@@ -18,10 +18,13 @@ public class FollowingUser {
     // 被关注的用户id
     private Long FollowingId;
 
-    // 被关注的用户放入哪个分组, 分组code
-    private Long groupCode;
+    // 被关注的用户放入哪个分组
+    private Long groupId;
 
     // 创建时间
     private Date createTime;
+
+    // 关注用户的详情
+    private User user;
 
 }
